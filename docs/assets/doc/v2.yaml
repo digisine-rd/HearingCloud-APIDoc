@@ -20,8 +20,8 @@ paths:
       operationId: login
       requestBody:
         content:
-          application/json: 
-            schema: 
+          application/json:
+            schema:
               type: object
               required:
                 - email
@@ -53,7 +53,7 @@ paths:
                     type: object
                     description: 員工相關資訊
                     properties:
-                      name: 
+                      name:
                         type: string
                         description: 員工名稱
                         example: abc
@@ -67,7 +67,7 @@ paths:
                           員工使用語言  
                           1 - en-US  
                           2 - zh-TW  
-                          3 - ja-JP  
+                          3 - ja-JP
                         example: 1
                       gids:
                         type: array
@@ -86,7 +86,7 @@ paths:
                               description: |
                                 群組類型  
                                 1 - 公司  
-                                2 - 分店  
+                                2 - 分店
                               type: integer
                               example: 1
         404:
@@ -110,7 +110,7 @@ paths:
                     example: Data Not Found
   /user:
     get:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
@@ -142,18 +142,18 @@ paths:
                     type: array
                     minItems: 0
                     items:
-                      $ref: '#/components/schemas/BaseUserInfo'
+                      $ref: "#/components/schemas/BaseUserInfo"
                   pagination:
-                    $ref: '#/components/schemas/Pagination'
+                    $ref: "#/components/schemas/Pagination"
         404:
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
     post:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 建立使用者
-      description: | 
+      description: |
         建立使用者  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_create
@@ -174,32 +174,32 @@ paths:
                   type: object
                   properties:
                     username:
-                      $ref: '#/components/schemas/Username'
+                      $ref: "#/components/schemas/Username"
                     gender:
-                      $ref: '#/components/schemas/Gender'
+                      $ref: "#/components/schemas/Gender"
                     is_b2b:
-                      $ref: '#/components/schemas/IsB2B'
+                      $ref: "#/components/schemas/IsB2B"
                     tid:
-                      $ref: '#/components/schemas/TID'
+                      $ref: "#/components/schemas/TID"
                     default_payment:
-                      $ref: '#/components/schemas/DefaultPayment'
+                      $ref: "#/components/schemas/DefaultPayment"
                     birthday:
-                      $ref: '#/components/schemas/BirthdayTimestamp'
+                      $ref: "#/components/schemas/BirthdayTimestamp"
                     phone:
-                      $ref: '#/components/schemas/Phone'
+                      $ref: "#/components/schemas/Phone"
                     phone_home:
-                      $ref: '#/components/schemas/PhoneHome'
+                      $ref: "#/components/schemas/PhoneHome"
                     email:
-                      $ref: '#/components/schemas/Email'
+                      $ref: "#/components/schemas/Email"
                     address:
-                      $ref: '#/components/schemas/Address'
+                      $ref: "#/components/schemas/Address"
                     contactList:
-                      $ref: '#/components/schemas/ContactList'
+                      $ref: "#/components/schemas/ContactList"
                   example:
                     username: abc
                     gender: 2
                     is_b2b: false
-                    tid: 
+                    tid:
                     default_payment: 1
                     birthday: 1680245752760
                     phone: 1234567890
@@ -217,32 +217,32 @@ paths:
                   type: object
                   properties:
                     username:
-                      $ref: '#/components/schemas/Username'
+                      $ref: "#/components/schemas/Username"
                     gender:
-                      $ref: '#/components/schemas/Gender'
+                      $ref: "#/components/schemas/Gender"
                     is_b2b:
-                      $ref: '#/components/schemas/IsB2B'
+                      $ref: "#/components/schemas/IsB2B"
                     tid:
-                      $ref: '#/components/schemas/TID'
+                      $ref: "#/components/schemas/TID"
                     default_payment:
-                      $ref: '#/components/schemas/DefaultPayment'
+                      $ref: "#/components/schemas/DefaultPayment"
                     birthday:
-                      $ref: '#/components/schemas/BirthdayTimestamp'
+                      $ref: "#/components/schemas/BirthdayTimestamp"
                     phone:
-                      $ref: '#/components/schemas/Phone'
+                      $ref: "#/components/schemas/Phone"
                     phone_home:
-                      $ref: '#/components/schemas/PhoneHome'
+                      $ref: "#/components/schemas/PhoneHome"
                     email:
-                      $ref: '#/components/schemas/Email'
+                      $ref: "#/components/schemas/Email"
                     address:
-                      $ref: '#/components/schemas/Address'
+                      $ref: "#/components/schemas/Address"
                     contactList:
-                      $ref: '#/components/schemas/ContactList'
+                      $ref: "#/components/schemas/ContactList"
                   example:
                     username: abc
                     gender: 2
                     is_b2b: false
-                    tid: 
+                    tid:
                     default_payment: 1
                     birthday: 1680245752760
                     phone_home: 1234567890
@@ -253,16 +253,16 @@ paths:
                         p: 1234567890
       responses:
         200:
-          $ref: '#/components/responses/BaseCreateSuccessResponse'
+          $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
     put:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 更新使用者
-      description: | 
+      description: |
         建立使用者  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_update
@@ -276,42 +276,42 @@ paths:
               type: object
               properties:
                 uid:
-                  $ref: '#/components/schemas/UserUID'
+                  $ref: "#/components/schemas/UserUID"
                 username:
-                  $ref: '#/components/schemas/Username'
+                  $ref: "#/components/schemas/Username"
                 gender:
-                  $ref: '#/components/schemas/Gender'
+                  $ref: "#/components/schemas/Gender"
                 is_b2b:
-                  $ref: '#/components/schemas/IsB2B'
+                  $ref: "#/components/schemas/IsB2B"
                 tid:
-                  $ref: '#/components/schemas/TID'
+                  $ref: "#/components/schemas/TID"
                 default_payment:
-                  $ref: '#/components/schemas/DefaultPayment'
+                  $ref: "#/components/schemas/DefaultPayment"
                 birthday:
-                  $ref: '#/components/schemas/BirthdayTimestamp'
+                  $ref: "#/components/schemas/BirthdayTimestamp"
                 phone:
-                  $ref: '#/components/schemas/Phone'
+                  $ref: "#/components/schemas/Phone"
                 phone_home:
-                  $ref: '#/components/schemas/PhoneHome'
+                  $ref: "#/components/schemas/PhoneHome"
                 email:
-                  $ref: '#/components/schemas/Email'
+                  $ref: "#/components/schemas/Email"
                 address:
-                  $ref: '#/components/schemas/Address'
+                  $ref: "#/components/schemas/Address"
                 contactList:
-                  $ref: '#/components/schemas/ContactList'
+                  $ref: "#/components/schemas/ContactList"
       responses:
         200:
-          $ref: '#/components/responses/BaseCreateSuccessResponse'
+          $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
   /user/{userId}:
     get:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 獲取使用者詳細資料
-      description: | 
+      description: |
         獲取使用者詳細資料  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_details
@@ -340,23 +340,23 @@ paths:
                       - type: object
                         properties:
                           hearing_loss:
-                            $ref: '#/components/schemas/HearingLossInfo'
+                            $ref: "#/components/schemas/HearingLossInfo"
                       - type: object
                         properties:
                           fitting_device:
-                            $ref: '#/components/schemas/FittingDeviceFullInfo'
+                            $ref: "#/components/schemas/FittingDeviceFullInfo"
                   pagination:
-                    $ref: '#/components/schemas/Pagination'
+                    $ref: "#/components/schemas/Pagination"
         404:
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
   /user/fittingReport/{userId}:
     get:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 獲取使用者適配報告
-      description: | 
+      description: |
         獲取使用者適配報告  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_fitting_report
@@ -383,15 +383,15 @@ paths:
                     type: string
                     example: "https://crm.digibionic.com/fittingReport?token=abcdefghijk"
         404:
-          $ref: '#/components/responses/NotFound'
+          $ref: "#/components/responses/NotFound"
   /user/hearingloss:
     put:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 更新使用者聽力圖
-      description: | 
+      description: |
         更新使用者聽力圖  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_audiogram_update
@@ -405,28 +405,28 @@ paths:
               type: object
               properties:
                 uid:
-                  $ref: '#/components/schemas/UserUID'
+                  $ref: "#/components/schemas/UserUID"
                 l:
                   description: "左耳聽力圖"
                   allOf:
-                    - $ref: '#/components/schemas/AudiogramFullInfo'
+                    - $ref: "#/components/schemas/AudiogramFullInfo"
                 r:
                   description: "右耳聽力圖"
                   allOf:
-                    - $ref: '#/components/schemas/AudiogramFullInfo'
+                    - $ref: "#/components/schemas/AudiogramFullInfo"
       responses:
         200:
-          $ref: '#/components/responses/BaseCreateSuccessResponse'
+          $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
   /user/fittingdevice:
     put:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 更新使用者適配裝置
-      description: | 
+      description: |
         更新使用者適配裝置  
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_fitting_device_update
@@ -440,30 +440,30 @@ paths:
               type: object
               properties:
                 uid:
-                  $ref: '#/components/schemas/UserUID'
+                  $ref: "#/components/schemas/UserUID"
                 l:
                   allOf:
-                    - $ref: '#/components/schemas/FittingDeviceRequestInfo'
+                    - $ref: "#/components/schemas/FittingDeviceRequestInfo"
                   nullable: true
                   description: "左耳適配裝置資訊"
                 r:
                   allOf:
-                    - $ref: '#/components/schemas/FittingDeviceRequestInfo'
+                    - $ref: "#/components/schemas/FittingDeviceRequestInfo"
                   nullable: true
                   description: "右耳適配裝置資訊"
       responses:
         200:
-          $ref: '#/components/responses/BaseCreateSuccessResponse'
+          $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
   /user/fittingtable:
     put:
-      security: 
+      security:
         - authToken: []
       tags:
         - User
       summary: 更新使用者調配處方
-      description: | 
+      description: |
         更新使用者調配處方
         Note: 如果X-TARGET-GID的id沒有在gid_list裡，只能讀不能寫
       operationId: user_fitting_table_update
@@ -477,34 +477,56 @@ paths:
               type: object
               properties:
                 uid:
-                  $ref: '#/components/schemas/UserUID'
+                  $ref: "#/components/schemas/UserUID"
                 leftDatas:
                   allOf:
-                    - $ref: '#/components/schemas/FittingTableData'
+                    - $ref: "#/components/schemas/FittingTableUpdateInfo"
                   nullable: true
                   description: "左耳調配處方"
                   example:
-                    is_accept: null
-                    mode: 1
                     data:
-                      - - 500
-                        - 3
+                      - gain:
+                          - - - 2
+                              - 3
+                              - 4
+                          - - - 2
+                              - 3
+                              - 4
+                          - - - 2
+                              - 3
+                              - 4
+                        mpo:
+                          - 100
+                          - 200
+                          - 300
+                    preset: 0
                 rightDatas:
                   allOf:
-                    - $ref: '#/components/schemas/FittingTableData'
+                    - $ref: "#/components/schemas/FittingTableUpdateInfo"
                   nullable: true
                   description: "右耳調配處方"
                   example:
-                    is_accept: null
-                    mode: 1
                     data:
-                      - - 500
-                        - 3
+                      - gain:
+                          - - - 2
+                              - 3
+                              - 4
+                          - - - 2
+                              - 3
+                              - 4
+                          - - - 2
+                              - 3
+                              - 4
+                        mpo:
+                          - 100
+                          - 200
+                          - 300
+                    preset: 0
       responses:
         200:
-          $ref: '#/components/responses/BaseCreateSuccessResponse'
+          $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
-          $ref: '#/components/responses/BadRequest'
+          $ref: "#/components/responses/BadRequest"
 components:
   securitySchemes:
     authToken:
@@ -548,7 +570,7 @@ components:
     Pagination:
       type: object
       properties:
-        total: 
+        total:
           type: integer
           description: 資料總數
           example: 1000
@@ -565,28 +587,28 @@ components:
       description: 使用者相關資訊
       properties:
         uid:
-          $ref: '#/components/schemas/UserUID'
-        name: 
-          $ref: '#/components/schemas/Username'
+          $ref: "#/components/schemas/UserUID"
+        name:
+          $ref: "#/components/schemas/Username"
         gender:
-          $ref: '#/components/schemas/Gender'
+          $ref: "#/components/schemas/Gender"
         photo:
           type: string
           description: 使用者大頭貼
           nullable: true
           example: default_photo.png
         phone:
-          $ref: '#/components/schemas/Phone'
+          $ref: "#/components/schemas/Phone"
         phone_home:
-          $ref: '#/components/schemas/PhoneHome'
+          $ref: "#/components/schemas/PhoneHome"
         address:
-          $ref: '#/components/schemas/Address'
+          $ref: "#/components/schemas/Address"
         birthday:
-          $ref: '#/components/schemas/Birthday'
+          $ref: "#/components/schemas/Birthday"
         email:
-          $ref: '#/components/schemas/Email'
+          $ref: "#/components/schemas/Email"
         contact_list:
-          $ref: '#/components/schemas/ContactList'
+          $ref: "#/components/schemas/ContactList"
         user_code:
           type: string
           description: 使用者客戶編號
@@ -601,11 +623,11 @@ components:
           description: 最後APP登入時間，ISO 8601格式，UTC時間
           example: 2023-01-01T01:00:00+0000
         is_b2b:
-          $ref: '#/components/schemas/IsB2B'
+          $ref: "#/components/schemas/IsB2B"
         tid:
-          $ref: '#/components/schemas/TID'
+          $ref: "#/components/schemas/TID"
         default_payment:
-          $ref: '#/components/schemas/DefaultPayment'
+          $ref: "#/components/schemas/DefaultPayment"
         is_enable:
           type: boolean
           description: 是否啟用
@@ -705,7 +727,7 @@ components:
           example: 5
     AudiogramInfo:
       type: object
-      additionalProperties: 
+      additionalProperties:
         type: integer
       example:
         125: 20
@@ -714,6 +736,59 @@ components:
     FittingTableData:
       type: object
       properties:
+        eq:
+          type: array
+          items:
+            type: integer
+            example:
+              - 3
+              - 3
+              - 3
+        gain:
+          description: "array順序為小中大聲音的gain"
+          type: array
+          maxItems: 3
+          minItems: 3
+          items:
+            type: array
+            items:
+              type: integer
+              example:
+                - 2
+                - 3
+                - 4
+        mpo:
+          type: array
+          items:
+            type: integer
+            example:
+              - 100
+              - 200
+              - 300
+    FittingTableUpdateInfo:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/FittingTableData"
+        preset:
+          description: 最後一次更新第幾設定的資料
+          type: integer
+          example: 0
+    FittingTableInfo:
+      type: object
+      properties:
+        date:
+          $ref: "#/components/schemas/UnixDatetime"
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/FittingTableData"
+        preset:
+          description: 最後一次更新第幾設定的資料
+          type: integer
+          example: 0
         is_accept:
           type: boolean
           description: |
@@ -723,32 +798,6 @@ components:
             false - 已拒絕
           nullable: true
           example: true
-        mode:
-          type: integer
-          description: 模式
-          example: 1
-        data:
-          type: array
-          items:
-            type: array
-            minLength: 2
-            maxLength: 2
-            description: 調整頻率，調整的EQ值
-            items:
-              anyOf:
-                - type: string
-                  example: "500"
-                - type: integer
-                  example: 3
-    FittingTableInfo:
-      type: object
-      properties:
-        date:
-          $ref: '#/components/schemas/UnixDatetime'
-        datas:
-          type: array
-          items:
-            $ref: '#/components/schemas/FittingTableData'
     FittingDeviceRequestInfo:
       type: object
       nullable: true
@@ -765,7 +814,7 @@ components:
       type: object
       properties:
         date:
-          $ref: '#/components/schemas/UnixDatetime'
+          $ref: "#/components/schemas/UnixDatetime"
         device_id:
           type: integer
           description: 裝置唯一識別ID
@@ -791,19 +840,19 @@ components:
           description: 裝置品牌唯一識別ID
           example: 1
         fitting_table:
-          $ref: '#/components/schemas/FittingTableInfo'
+          $ref: "#/components/schemas/FittingTableInfo"
     FittingDeviceFullInfo:
       type: object
       properties:
         d:
-          $ref: '#/components/schemas/UnixDatetime'
+          $ref: "#/components/schemas/UnixDatetime"
       anyOf:
         - properties:
             l:
-              $ref: '#/components/schemas/FittingDeviceInfo'
+              $ref: "#/components/schemas/FittingDeviceInfo"
         - properties:
             r:
-              $ref: '#/components/schemas/FittingDeviceInfo'
+              $ref: "#/components/schemas/FittingDeviceInfo"
       example:
         d: 1592471833
         l:
@@ -816,12 +865,23 @@ components:
           brand_id: 1
           fitting_table:
             date: 1592471833
-            datas:
-              - is_accept: true
-                mode: 1
-                data:
-                  - - 500
-                    - 3
+            data:
+              - gain:
+                  - - - 2
+                      - 3
+                      - 4
+                  - - - 2
+                      - 3
+                      - 4
+                  - - - 2
+                      - 3
+                      - 4
+                mpo:
+                  - 100
+                  - 200
+                  - 300
+            preset: 0
+            is_accept: true
         r:
           date: 1592471833
           device_id: 2
@@ -832,24 +892,35 @@ components:
           brand_id: 1
           fitting_table:
             date: 1592471833
-            datas:
-              - is_accept: true
-                mode: 1
-                data:
-                  - - 500
-                    - 3
+            data:
+              - gain:
+                  - - - 2
+                      - 3
+                      - 4
+                  - - - 2
+                      - 3
+                      - 4
+                  - - - 2
+                      - 3
+                      - 4
+                mpo:
+                  - 100
+                  - 200
+                  - 300
+            preset: 0
+            is_accept: true
     HearingLossInfo:
       type: object
       properties:
         d:
-          $ref: '#/components/schemas/UnixDatetime'
+          $ref: "#/components/schemas/UnixDatetime"
       anyOf:
         - properties:
             l:
-              $ref: '#/components/schemas/AudiogramInfo'
+              $ref: "#/components/schemas/AudiogramInfo"
         - properties:
             r:
-              $ref: '#/components/schemas/AudiogramInfo'
+              $ref: "#/components/schemas/AudiogramInfo"
       example:
         d: 1592471833
         l:
@@ -860,7 +931,7 @@ components:
           125: 20
           500: 50
           1000: 90
-    Username: 
+    Username:
       type: string
       description: 使用者名稱
       example: abc
@@ -936,7 +1007,7 @@ components:
       description: 使用者唯一識別ID
       example: 1
   responses:
-    'BaseSuccessResponse':
+    "BaseSuccessResponse":
       description: 成功回應基本結構
       content:
         application/json:
@@ -949,7 +1020,7 @@ components:
               result:
                 type: string
                 example: success
-    'BaseCreateSuccessResponse':
+    "BaseCreateSuccessResponse":
       description: 成功建立回應
       content:
         application/json:
@@ -959,7 +1030,7 @@ components:
               message:
                 type: string
                 example: success
-    'NotFound':
+    "NotFound":
       description: 資料不存在
       content:
         application/json:
@@ -978,7 +1049,7 @@ components:
               message:
                 type: string
                 example: Data Not Found
-    'BadRequest':
+    "BadRequest":
       description: 要求參數錯誤
       content:
         application/json:
