@@ -1,7 +1,22 @@
 openapi: 3.0.0
 info:
   title: DigibionicCloudv2 API Documentation
-  version: 2.0.0
+  version: 2.0.1
+  description: |
+    # ChangeLog
+
+    ## v2.0.1
+    - 增加 FittingDeviceInfo 欄位
+      - device_max_preset
+      - frequency
+      - serial
+    - 增加 /user/fittingtable PUT API 參數
+      - software
+      - version
+      - is_accept
+    - 修正 FittingDeviceFullInfo 欄位
+      - l -> left
+      - r -> right
 servers:
   - description: Production
     url: https://crmapi.digibionic.com/api
@@ -522,6 +537,12 @@ paths:
                           - 200
                           - 300
                     preset: 0
+                software:
+                  $ref: "#/components/schemas/Software"
+                version:
+                  $ref: "#/components/schemas/Version"
+                is_accept:
+                  $ref: "#/components/schemas/AcceptStatus"
       responses:
         200:
           $ref: "#/components/responses/BaseCreateSuccessResponse"
@@ -790,14 +811,7 @@ components:
           type: integer
           example: 0
         is_accept:
-          type: boolean
-          description: |
-            是否已經接受設定  
-            null - 還未接受  
-            true - 已接受  
-            false - 已拒絕
-          nullable: true
-          example: true
+          $ref: "#/components/schemas/AcceptStatus"
     FittingDeviceRequestInfo:
       type: object
       nullable: true
@@ -835,6 +849,23 @@ components:
           type: integer
           description: 裝置可調整模式數量
           example: 3
+        device_max_preset:
+          type: integer
+          description: 裝置最大可儲存設置
+          example: 1
+        frequency:
+          type: array
+          description: 裝置調整的頻率
+          items:
+            type: integer
+            example:
+              - 500
+              - 1000
+              - 2000
+              - 4000
+        serial:
+          type: string
+          description: 適配裝置序號
         brand_id:
           type: integer
           description: 裝置品牌唯一識別ID
@@ -848,20 +879,27 @@ components:
           $ref: "#/components/schemas/UnixDatetime"
       anyOf:
         - properties:
-            l:
+            left:
               $ref: "#/components/schemas/FittingDeviceInfo"
         - properties:
-            r:
+            right:
               $ref: "#/components/schemas/FittingDeviceInfo"
       example:
         d: 1592471833
-        l:
+        left:
           date: 1592471833
           device_id: 2
           device_name: goodHearing T3
           device_config: 1862
           device_max_bar: 32
           device_max_mode: 3
+          device_max_preset: 1
+          frequency:
+            - 500
+            - 1000
+            - 2000
+            - 4000
+          serial: "abc"
           brand_id: 1
           fitting_table:
             date: 1592471833
@@ -882,13 +920,20 @@ components:
                   - 300
             preset: 0
             is_accept: true
-        r:
+        right:
           date: 1592471833
           device_id: 2
           device_name: goodHearing T3
           device_config: 1862
           device_max_bar: 32
           device_max_mode: 3
+          device_max_preset: 1
+          frequency:
+            - 500
+            - 1000
+            - 2000
+            - 4000
+          serial: "efg"
           brand_id: 1
           fitting_table:
             date: 1592471833
@@ -1006,6 +1051,23 @@ components:
       type: integer
       description: 使用者唯一識別ID
       example: 1
+    Software:
+      type: string
+      description: 軟體名稱
+      example: CRM
+    Version:
+      type: string
+      description: 版本
+      example: 1.0.0
+    AcceptStatus:
+      type: boolean
+      description: |
+        是否已經接受設定  
+        null - 還未接受  
+        true - 已接受  
+        false - 已拒絕
+      nullable: true
+      example: true
   responses:
     "BaseSuccessResponse":
       description: 成功回應基本結構
