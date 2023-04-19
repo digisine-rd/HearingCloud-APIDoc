@@ -14,6 +14,8 @@ info:
       - software
       - version
       - is_accept
+    - 增加 FittingTableInfo 欄位
+      - uid
     - 修正 FittingDeviceFullInfo 欄位
       - l -> left
       - r -> right
@@ -800,6 +802,10 @@ components:
     FittingTableInfo:
       type: object
       properties:
+        uid:
+          type: integer
+          description: 適配處方唯一識別ID
+          example: 1
         date:
           $ref: "#/components/schemas/UnixDatetime"
         data:
