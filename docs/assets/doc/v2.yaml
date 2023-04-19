@@ -5,6 +5,10 @@ info:
   description: |
     # ChangeLog
 
+    ## v2.0.2
+    - 增加 FittingTableData 欄位
+      - mode
+
     ## v2.0.1
     - 增加 FittingDeviceInfo 欄位
       - device_max_preset
@@ -516,6 +520,7 @@ paths:
                           - 100
                           - 200
                           - 300
+                        mode: 0
                     preset: 0
                 rightDatas:
                   allOf:
@@ -538,6 +543,7 @@ paths:
                           - 100
                           - 200
                           - 300
+                        mode: 0
                     preset: 0
                 software:
                   $ref: "#/components/schemas/Software"
@@ -788,6 +794,9 @@ components:
               - 100
               - 200
               - 300
+        mode:
+          type: integer
+          example: 0
     FittingTableUpdateInfo:
       type: object
       properties:
@@ -924,6 +933,7 @@ components:
                   - 100
                   - 200
                   - 300
+                mode: 0
             preset: 0
             is_accept: true
         right:
@@ -958,6 +968,7 @@ components:
                   - 100
                   - 200
                   - 300
+                mode: 0
             preset: 0
             is_accept: true
     HearingLossInfo:
