@@ -5,6 +5,9 @@ info:
   description: |
     # ChangeLog
 
+    ## v2.0.3
+    - 修正 FittingTableData中gain的格式
+
     ## v2.0.2
     - 增加 FittingTableData 欄位
       - mode
@@ -510,10 +513,10 @@ paths:
                           - - - 2
                               - 3
                               - 4
-                          - - - 2
+                            - - 2
                               - 3
                               - 4
-                          - - - 2
+                            - - 2
                               - 3
                               - 4
                         mpo:
@@ -533,10 +536,10 @@ paths:
                           - - - 2
                               - 3
                               - 4
-                          - - - 2
+                            - - 2
                               - 3
                               - 4
-                          - - - 2
+                            - - 2
                               - 3
                               - 4
                         mpo:
@@ -776,12 +779,12 @@ components:
         gain:
           description: "array順序為小中大聲音的gain"
           type: array
-          maxItems: 3
-          minItems: 3
           items:
             type: array
             items:
               type: integer
+              maxItems: 3
+              minItems: 3
               example:
                 - 2
                 - 3
@@ -923,10 +926,10 @@ components:
                   - - - 2
                       - 3
                       - 4
-                  - - - 2
+                    - - 2
                       - 3
                       - 4
-                  - - - 2
+                    - - 2
                       - 3
                       - 4
                 mpo:
@@ -958,10 +961,10 @@ components:
                   - - - 2
                       - 3
                       - 4
-                  - - - 2
+                    - - 2
                       - 3
                       - 4
-                  - - - 2
+                    - - 2
                       - 3
                       - 4
                 mpo:
