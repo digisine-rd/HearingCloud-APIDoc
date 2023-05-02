@@ -1,9 +1,12 @@
 openapi: 3.0.0
 info:
   title: DigibionicCloudv2 API Documentation
-  version: 2.0.2
+  version: 2.0.4
   description: |
     # ChangeLog
+
+    ## v2.0.4
+    - 修正錯誤的登入url
 
     ## v2.0.3
     - 修正 FittingTableData中gain的格式
@@ -35,7 +38,7 @@ tags:
   - name: User
     description: 使用者相關API
 paths:
-  /auth:
+  /auth/employee:
     post:
       tags:
         - Authentication
