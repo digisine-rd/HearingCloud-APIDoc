@@ -1,12 +1,21 @@
 openapi: 3.0.0
 info:
   title: DigibionicCloudv2 API Documentation
-  version: 2.0.4
+  version: 2.0.5
   description: |
     # ChangeLog
 
+    ## v2.0.5
+    - 增加國碼列表API
+    - 增加unseen_msg說明
+    - 修正手機格式
+
     ## v2.0.4
     - 修正錯誤的登入url
+
+    # Old ChangeLog
+    <details>
+    <summary>Details</summary>
 
     ## v2.0.3
     - 修正 FittingTableData中gain的格式
@@ -29,6 +38,8 @@ info:
     - 修正 FittingDeviceFullInfo 欄位
       - l -> left
       - r -> right
+
+    </details>
 servers:
   - description: Production
     url: https://crmapi.digibionic.com/api
@@ -37,6 +48,8 @@ tags:
     description: 驗證相關API
   - name: User
     description: 使用者相關API
+  - name: Settings
+    description: 系統設定相關API
 paths:
   /auth/employee:
     post:
@@ -229,7 +242,10 @@ paths:
                     tid:
                     default_payment: 1
                     birthday: 1680245752760
-                    phone: 1234567890
+                    phone: {
+                      "code": "+866",
+                      "phone": "123456789"
+                    }
                     email: abc@abc.com
                     address: abc,abc,abc
                     contactList:
@@ -562,6 +578,35 @@ paths:
           $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
           $ref: "#/components/responses/BadRequest"
+  /settings/phoneCode:
+    get:
+      security:
+        - authToken: []
+      tags:
+        - Settings
+      summary: 獲取手機國碼列表
+      description: 獲取手機國碼列表
+      operationId: settings_phoneCode_list
+      parameters:
+        - $ref: "#/components/parameters/SelectedGroup"
+      responses:
+        200:
+          description: 手機國碼列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  result:
+                    type: array
+                    minItems: 0
+                    items:
+                      $ref: "#/components/schemas/PhoneCodeInfo"
+        404:
+          $ref: "#/components/responses/NotFound"
 components:
   securitySchemes:
     authToken:
@@ -705,6 +750,9 @@ components:
                 type: boolean
                 description: 群組是否為主要負責群組
                 example: true
+        unseen_msg:
+          type: number
+          description: 使用者未讀訊息
     AudiogramFullInfo:
       type: object
       properties:
@@ -1012,11 +1060,19 @@ components:
         2 - 其他
       example: 2
     Phone:
-      type: string
+      type: object
       description: 使用者手機號碼
       nullable: true
-      pattern: ^\+?\d{10,14}
-      example: "1234567890"
+      properties:
+        code:
+          description: 國碼
+          type: string
+          example: "+886"
+        value:
+          description: 手機號碼
+          type: string
+          pattern: ^\+?\d{10,14}
+          example: 1234567890
     PhoneHome:
       type: string
       description: 使用者家用電話號碼
@@ -1091,6 +1147,18 @@ components:
         false - 已拒絕
       nullable: true
       example: true
+    PhoneCodeInfo:
+      type: object
+      description: 國碼資訊
+      properties:
+        uid:
+          type: string
+          description: 國碼
+          example: "+886"
+        isDefault:
+          type: boolean
+          description: 是否是公司/分店默認國碼
+          example: true
   responses:
     "BaseSuccessResponse":
       description: 成功回應基本結構
