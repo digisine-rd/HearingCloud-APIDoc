@@ -4,18 +4,21 @@ info:
   version: 2.0.5
   description: |
     # ChangeLog
+    
+    ## v2.0.6
+    - 增加Nalnl2 處方API
 
     ## v2.0.5
     - 增加國碼列表API
     - 增加unseen_msg說明
     - 修正手機格式
 
-    ## v2.0.4
-    - 修正錯誤的登入url
-
     # Old ChangeLog
     <details>
     <summary>Details</summary>
+    
+    ## v2.0.4
+    - 修正錯誤的登入url
 
     ## v2.0.3
     - 修正 FittingTableData中gain的格式
@@ -392,6 +395,104 @@ paths:
                     $ref: "#/components/schemas/Pagination"
         404:
           $ref: "#/components/responses/NotFound"
+  /user/prescription/{userId}:
+    get:
+      security:
+        - authToken: []
+      tags:
+        - User
+      summary: 獲取使用者處方
+      description: 獲取使用者處方
+      operationId: user_prescription
+      parameters:
+        - $ref: "#/components/parameters/SelectedGroup"
+        - in: path
+          name: userId
+          required: true
+          description: 使用者唯一識別ID
+          schema:
+            type: integer
+            example: 100
+      responses:
+        200:
+          description: 使用者處方資料，index0為左耳，index1為右耳，無論裝置是否雙耳都會回傳兩耳處方
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  result:
+                    type: array
+                    minItems: 2
+                    maxItems: 2
+                    items:
+                      $ref: "#/components/schemas/PrescriptionData"
+                    example:
+                      - - - 39
+                          - 44
+                          - 45
+                          - 39
+                          - 39
+                          - 21
+                          - 21
+                          - 10
+                          - 10
+                          - 7
+                          - 4
+                          - 5
+                          - 9
+                          - 9
+                          - 11
+                        - - 39
+                          - 44
+                          - 45
+                          - 39
+                          - 39
+                          - 21
+                          - 21
+                          - 10
+                          - 10
+                          - 7
+                          - 4
+                          - 5
+                          - 9
+                          - 9
+                          - 11
+                      - - - 39
+                          - 44
+                          - 45
+                          - 39
+                          - 39
+                          - 21
+                          - 21
+                          - 10
+                          - 10
+                          - 7
+                          - 4
+                          - 5
+                          - 9
+                          - 9
+                          - 11
+                        - - 39
+                          - 44
+                          - 45
+                          - 39
+                          - 39
+                          - 21
+                          - 21
+                          - 10
+                          - 10
+                          - 7
+                          - 4
+                          - 5
+                          - 9
+                          - 9
+                          - 11
+        404:
+          $ref: "#/components/responses/NotFound"
   /user/fittingReport/{userId}:
     get:
       security:
@@ -662,6 +763,44 @@ components:
           type: integer
           description: 第幾頁，從0開始計算
           example: 0
+    PrescriptionData:
+      description: 使用者處方資訊，會隨著裝置可調整的level（大中小聲音）的數量調整array的數量
+      type: array
+      maxItems: 3
+      minItems: 1
+      items:
+        type: integer
+      example:
+        - - 39
+          - 44
+          - 45
+          - 39
+          - 39
+          - 21
+          - 21
+          - 10
+          - 10
+          - 7
+          - 4
+          - 5
+          - 9
+          - 9
+          - 11
+        - - 39
+          - 44
+          - 45
+          - 39
+          - 39
+          - 21
+          - 21
+          - 10
+          - 10
+          - 7
+          - 4
+          - 5
+          - 9
+          - 9
+          - 11
     BaseUserInfo:
       type: object
       description: 使用者相關資訊
