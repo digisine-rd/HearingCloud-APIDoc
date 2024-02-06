@@ -5,17 +5,24 @@ info:
   description: |
     # ChangeLog
     
+    ## v2.0.7
+    - 增加使用者助聽器使用經驗欄位
+    - 增加使用者是否為聲調語言欄位
+    - 增加適配處方標籤欄位
+    - 增加歷史適配記錄API (只有標籤的處方)
+    - 修正缺失的條件
+    
     ## v2.0.6
     - 增加Nalnl2 處方API
+
+    # Old ChangeLog
+    <details>
+    <summary>Details</summary>
 
     ## v2.0.5
     - 增加國碼列表API
     - 增加unseen_msg說明
     - 修正手機格式
-
-    # Old ChangeLog
-    <details>
-    <summary>Details</summary>
     
     ## v2.0.4
     - 修正錯誤的登入url
@@ -238,6 +245,10 @@ paths:
                       $ref: "#/components/schemas/Address"
                     contactList:
                       $ref: "#/components/schemas/ContactList"
+                    is_experience:
+                      $ref: "#/components/schemas/IsExp"
+                    is_tonal:
+                      $ref: "#/components/schemas/IsTonal"
                   example:
                     username: abc
                     gender: 2
@@ -284,6 +295,10 @@ paths:
                       $ref: "#/components/schemas/Address"
                     contactList:
                       $ref: "#/components/schemas/ContactList"
+                    is_experience:
+                      $ref: "#/components/schemas/IsExp"
+                    is_tonal:
+                      $ref: "#/components/schemas/IsTonal"
                   example:
                     username: abc
                     gender: 2
@@ -345,6 +360,10 @@ paths:
                   $ref: "#/components/schemas/Address"
                 contactList:
                   $ref: "#/components/schemas/ContactList"
+                is_experience:
+                  $ref: "#/components/schemas/IsExp"
+                is_tonal:
+                  $ref: "#/components/schemas/IsTonal"
       responses:
         200:
           $ref: "#/components/responses/BaseCreateSuccessResponse"
@@ -672,6 +691,10 @@ paths:
                   $ref: "#/components/schemas/Software"
                 version:
                   $ref: "#/components/schemas/Version"
+                tag_name:
+                  $ref: "#/components/schemas/TagName"
+                tag_description:
+                  $ref: "#/components/schemas/TagDescription"
                 is_accept:
                   $ref: "#/components/schemas/AcceptStatus"
       responses:
@@ -679,6 +702,101 @@ paths:
           $ref: "#/components/responses/BaseCreateSuccessResponse"
         422:
           $ref: "#/components/responses/BadRequest"
+  /user/fittingtable/tag/{userId}:
+    get:
+      security:
+        - authToken: []
+      tags:
+        - User
+      summary: 獲取使用者歷史適配記錄
+      description: 獲取使用者歷史適配記錄
+      operationId: user_fitting_table_tags
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: 使用者唯一識別ID
+          schema:
+            type: integer
+            example: 100
+      responses:
+        200:
+          description: 調配歷史記錄
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: success
+                  result:
+                    type: array
+                    minItems: 0
+                    items:
+                      $ref: "#/components/schemas/FittingTableHistoryData"
+        404:
+          $ref: "#/components/responses/NotFound"
+  /user/fittingtable/tag:
+    put:
+      security:
+        - authToken: []
+      tags:
+        - User
+      summary: 更新標籤資訊
+      description: 更新標籤資訊
+      operationId: user_fitting_talbe_tag_update
+      parameters:
+        - $ref: "#/components/parameters/SelectedGroup"
+      requestBody:
+        required: true
+        content:
+          apllication/json:
+            schema:
+              type: object
+              required:
+                - uid
+                - name
+              properties:
+                uid:
+                  type: integer
+                  description: 標籤唯一識別ID
+                  example: 1
+                name:
+                  type: string
+                  description: 標籤名稱
+                  example: "this is tag name"
+                description:
+                  type: string
+                  description: 標籤描述
+                  example: "this is tag description"
+      responses:
+        200:
+          $ref: "#/components/responses/BaseUpdateSuccessResponse"
+        404:
+          $ref: "#/components/responses/NotFound"
+  /user/fittingtable/tag/{tagId}:
+    delete:
+      security:
+        - authToken: []
+      tags:
+        - User
+      summary: 刪除標籤資訊
+      description: 刪除標籤資訊
+      operationId: user_fitting_table_tags_delete
+      parameters:
+        - in: path
+          name: tagId
+          required: true
+          description: 標籤唯一識別ID
+          schema:
+            type: integer
+            example: 100
+      responses:
+        200:
+          $ref: "#/components/responses/BaseDeleteSuccessResponse"
+        404:
+          $ref: "#/components/responses/NotFound"
   /settings/phoneCode:
     get:
       security:
@@ -855,6 +973,10 @@ components:
           type: boolean
           description: 是否完成驗證
           example: true
+        is_experience:
+          $ref: "#/components/schemas/IsExp"
+        is_tonal:
+          $ref: "#/components/schemas/IsTonal"
         eid_list:
           type: array
           minItems: 0
@@ -990,6 +1112,47 @@ components:
         mode:
           type: integer
           example: 0
+    FittingTableExtraData:
+      type: object
+      properties:
+        eq:
+          type: array
+          items:
+            type: integer
+            example:
+              - 3
+              - 3
+              - 3
+        gain:
+          description: "array順序為小中大聲音的gain"
+          type: array
+          maxItems: 3
+          minItems: 3
+          items:
+            type: array
+            items:
+              type: integer
+              example:
+                - 2
+                - 3
+                - 4
+        mpo:
+          type: array
+          description: "MPO"
+          items:
+            type: integer
+            example:
+              - 100
+              - 200
+              - 300
+        mode:
+          type: integer
+          description: "模式"
+          example: 0
+        device_id: 
+          description: "裝置唯一識別ID"
+          type: integer
+          example: 123
     FittingTableUpdateInfo:
       type: object
       properties:
@@ -1260,6 +1423,24 @@ components:
       nullable: true
       description: 統一編號
       example: null
+    IsExp:
+      type: integer
+      nullable: false
+      description: |
+        是否有使用助聽器的經驗(參考NalNl2 enum值)
+        0 - 有經驗
+        1 - 沒有經驗
+      example: 0
+      default: 0
+    IsTonal:
+      type: integer
+      nullable: false
+      description: |
+        是否是聲調語言(參考NalNl2 enum值)
+        0 - 非聲調語言
+        1 - 是聲調語言
+      example: 0
+      default: 0
     DefaultPayment:
       type: integer
       nullable: true
@@ -1298,6 +1479,44 @@ components:
           type: boolean
           description: 是否是公司/分店默認國碼
           example: true
+    FittingTableHistoryData:
+      type: object
+      description: 適配歷史記錄資訊
+      properties:
+        uid:
+          type: integer
+          description: 適配歷史記錄唯一ID
+          example: 123
+        name:
+          type: string
+          description: 標籤名稱
+          example: "this is name"
+        description:
+          type: string
+          description: 標籤描述
+          example: "this is description"
+        create_timestamp:
+          type: string
+          description:  建立時間，ISO 8601格式，UTC時間
+          example: 2023-01-01T01:00:00+0000
+        update_timestamp:
+          type: string
+          description: 最後更新時間，ISO 8601格式，UTC時間
+          example: 2023-01-01T01:00:00+0000
+        right:
+          $ref: "#/components/schemas/FittingTableExtraData"
+        left:
+          $ref: "#/components/schemas/FittingTableExtraData"
+    TagName:
+      type: string
+      description: 標籤名稱，undefined/null 為不建立標籤
+      example: "this is tag name"
+      nullable: true
+    TagDescription:
+      type: string
+      description: 標籤描述
+      example: "this is tag description"
+      nullable: true
   responses:
     "BaseSuccessResponse":
       description: 成功回應基本結構
@@ -1314,6 +1533,26 @@ components:
                 example: success
     "BaseCreateSuccessResponse":
       description: 成功建立回應
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: success
+    "BaseUpdateSuccessResponse":
+      description: 成功更新回應
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: success
+    "BaseDeleteSuccessResponse":
+      description: 成功刪除回應
       content:
         application/json:
           schema:
