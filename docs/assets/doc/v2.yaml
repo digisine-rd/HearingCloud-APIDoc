@@ -5,19 +5,26 @@ info:
   description: |
     # ChangeLog
     
+    ## v2.0.8
+    - 增加調配處方指向性麥克風參數
+    - 增加調配處方自動噪音抑制是否打開參數
+    - 增加調配處方噪音抑制是否打開參數
+    - 增加調配處方風噪音消除是否打開參數
+    - 增加調配處方瞬響音柔化是否打開參數
+    
     ## v2.0.7
     - 增加使用者助聽器使用經驗欄位
     - 增加使用者是否為聲調語言欄位
     - 增加適配處方標籤欄位
     - 增加歷史適配記錄API (只有標籤的處方)
     - 修正缺失的條件
-    
-    ## v2.0.6
-    - 增加Nalnl2 處方API
 
     # Old ChangeLog
     <details>
     <summary>Details</summary>
+    
+    ## v2.0.6
+    - 增加Nalnl2 處方API
 
     ## v2.0.5
     - 增加國碼列表API
@@ -663,6 +670,14 @@ paths:
                           - 200
                           - 300
                         mode: 0
+                    directionalMic:
+                      isEnable: true
+                      direction: 1
+                      degress: 120
+                    autoNoiseReduce: true
+                    noiseReduce: true
+                    windNoiseCancel: true
+                    transientSoundSofting: true
                     preset: 0
                 rightDatas:
                   allOf:
@@ -686,6 +701,14 @@ paths:
                           - 200
                           - 300
                         mode: 0
+                    directionalMic:
+                      isEnable: true
+                      direction: 1
+                      degress: 120
+                    autoNoiseReduce: true
+                    noiseReduce: true
+                    windNoiseCancel: true
+                    transientSoundSofting: true
                     preset: 0
                 software:
                   $ref: "#/components/schemas/Software"
@@ -1153,6 +1176,30 @@ components:
           description: "裝置唯一識別ID"
           type: integer
           example: 123
+    DirectionalMicData:
+      type: object
+      description: 指向性麥克風參數
+      properties:
+        isEnable:
+          type: boolean
+          example: false
+        direction:
+          description: |
+            收音方向  
+            1 - 前方  
+            2 - 後方  
+            3 - 左邊  
+            4 - 右邊
+          type: number
+          example: 1
+          minimum: 1
+          maximum: 4
+        degress:
+          description: 收音角度
+          type: number
+          example: 120
+          minimum: 0
+          maximum: 360
     FittingTableUpdateInfo:
       type: object
       properties:
@@ -1160,6 +1207,20 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FittingTableData"
+        directionalMic:
+            $ref: "#/components/schemas/DirectionalMicData"
+        autoNoiseReduce:
+            type: boolean
+            description: 自動噪音抑制是否打開
+        noiseReduce:
+            type: boolean
+            description: 噪音抑制是否打開
+        windNoiseCancel:
+            type: boolean
+            description: 風噪音消除是否打開
+        transientSoundSofting:
+            type: boolean
+            description: 瞬響音柔化是否打開
         preset:
           description: 最後一次更新第幾設定的資料
           type: integer
@@ -1177,6 +1238,20 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FittingTableData"
+        directionalMic:
+            $ref: "#/components/schemas/DirectionalMicData"
+        autoNoiseReduce:
+            type: boolean
+            description: 自動噪音抑制是否打開
+        noiseReduce:
+            type: boolean
+            description: 噪音抑制是否打開
+        windNoiseCancel:
+            type: boolean
+            description: 風噪音消除是否打開
+        transientSoundSofting:
+            type: boolean
+            description: 瞬響音柔化是否打開
         preset:
           description: 最後一次更新第幾設定的資料
           type: integer
@@ -1290,6 +1365,14 @@ components:
                   - 200
                   - 300
                 mode: 0
+            directionalMic:
+              isEnable: true
+              direction: 1
+              degress: 120
+            autoNoiseReduce: true
+            noiseReduce: true
+            windNoiseCancel: true
+            transientSoundSofting: true
             preset: 0
             is_accept: true
         right:
@@ -1325,6 +1408,14 @@ components:
                   - 200
                   - 300
                 mode: 0
+            directionalMic:
+              isEnable: true
+              direction: 1
+              degress: 120
+            autoNoiseReduce: true
+            noiseReduce: true
+            windNoiseCancel: true
+            transientSoundSofting: true
             preset: 0
             is_accept: true
     HearingLossInfo:
