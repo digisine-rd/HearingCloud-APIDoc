@@ -5,6 +5,9 @@ info:
   description: |
     # ChangeLog
     
+    ## v2.0.9
+    - 增加使用者搜索參數
+    
     ## v2.0.8
     - 增加調配處方指向性麥克風參數
     - 增加調配處方自動噪音抑制是否打開參數
@@ -12,16 +15,17 @@ info:
     - 增加調配處方風噪音消除是否打開參數
     - 增加調配處方瞬響音柔化是否打開參數
     
+
+    # Old ChangeLog
+    <details>
+    <summary style="cursor: pointer;">Details</summary>
+    
     ## v2.0.7
     - 增加使用者助聽器使用經驗欄位
     - 增加使用者是否為聲調語言欄位
     - 增加適配處方標籤欄位
     - 增加歷史適配記錄API (只有標籤的處方)
     - 修正缺失的條件
-
-    # Old ChangeLog
-    <details>
-    <summary>Details</summary>
     
     ## v2.0.6
     - 增加Nalnl2 處方API
@@ -175,6 +179,27 @@ paths:
       description: 獲取使用者資料列表
       operationId: user_list
       parameters:
+        - name: search
+          in: query
+          description: 模糊搜索,搜索欄位包括：名字、電話、家用電話、聯絡人電話和email (不寫該 query 為全顯示)
+          schema:
+            type: string
+            nullable: true
+            example: 王小明
+        - name: is_b2b
+          in: query
+          description: 選擇要顯示B2B的客戶還是B2C的客戶 (不寫該 query 為全顯示)
+          schema:
+            type: boolean
+            nullable: true
+            example: false
+        - name: groups
+          in: query
+          description: 過濾群組，群組唯一識別 UID 為登入回應的 gids 裡的 gid (不寫該 query 為全顯示)
+          schema:
+            type: integer
+            example: 1
+            nullable: true
         - $ref: "#/components/parameters/PageIndex"
         - $ref: "#/components/parameters/PageSize"
         - name: is_enable
