@@ -1,25 +1,29 @@
 openapi: 3.0.0
 info:
   title: DigibionicCloudv2 API Documentation
-  version: 2.0.5
+  version: 2.0.10
   description: |
     # ChangeLog
-    
+
+    ## v2.0.10
+    - 增加調配處方回饋音處理否打開參數
+    - 增加調配處方回饋音處理等級參數
+    - 增加調配處方噪音抑制等級參數
+
     ## v2.0.9
     - 增加使用者搜索參數
-    
+
+    # Old ChangeLog
+    <details>
+    <summary style="cursor: pointer;">Details</summary>
+
     ## v2.0.8
     - 增加調配處方指向性麥克風參數
     - 增加調配處方自動噪音抑制是否打開參數
     - 增加調配處方噪音抑制是否打開參數
     - 增加調配處方風噪音消除是否打開參數
     - 增加調配處方瞬響音柔化是否打開參數
-    
 
-    # Old ChangeLog
-    <details>
-    <summary style="cursor: pointer;">Details</summary>
-    
     ## v2.0.7
     - 增加使用者助聽器使用經驗欄位
     - 增加使用者是否為聲調語言欄位
@@ -699,8 +703,12 @@ paths:
                       isEnable: true
                       direction: 1
                       degress: 120
+                    echoProcessing:
+                      isEnable: true
+                      level: 1
                     autoNoiseReduce: true
                     noiseReduce: true
+                    noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
                     preset: 0
@@ -730,8 +738,12 @@ paths:
                       isEnable: true
                       direction: 1
                       degress: 120
+                    echoProcessing:
+                      isEnable: true
+                      level: 1
                     autoNoiseReduce: true
                     noiseReduce: true
+                    noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
                     preset: 0
@@ -1225,6 +1237,18 @@ components:
           example: 120
           minimum: 0
           maximum: 360
+    EchoProcessingData:
+      type: object
+      description: 回饋音處理參數
+      properties:
+        isEnable:
+          description: 回饋音處理是否開啟
+          type: boolean
+          example: false
+        level:
+          description: 回饋音處理等級
+          type: number
+          example: 1
     FittingTableUpdateInfo:
       type: object
       properties:
@@ -1240,12 +1264,17 @@ components:
         noiseReduce:
             type: boolean
             description: 噪音抑制是否打開
+        noiseReduceLevel:
+            type: number
+            description: 噪音抑制等級
         windNoiseCancel:
             type: boolean
             description: 風噪音消除是否打開
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
+        echoProcessing:
+            $ref: "#/components/schemas/EchoProcessingData"
         preset:
           description: 最後一次更新第幾設定的資料
           type: integer
@@ -1271,12 +1300,17 @@ components:
         noiseReduce:
             type: boolean
             description: 噪音抑制是否打開
+        noiseReduceLevel:
+            type: number
+            description: 噪音抑制等級
         windNoiseCancel:
             type: boolean
             description: 風噪音消除是否打開
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
+        echoProcessing:
+            $ref: "#/components/schemas/EchoProcessingData"
         preset:
           description: 最後一次更新第幾設定的資料
           type: integer
@@ -1394,8 +1428,12 @@ components:
               isEnable: true
               direction: 1
               degress: 120
+            echoProcessing:
+              isEnable: true
+              level: 1
             autoNoiseReduce: true
             noiseReduce: true
+            noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
             preset: 0
@@ -1437,8 +1475,12 @@ components:
               isEnable: true
               direction: 1
               degress: 120
+            echoProcessing:
+              isEnable: true
+              level: 1
             autoNoiseReduce: true
             noiseReduce: true
+            noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
             preset: 0
