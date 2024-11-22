@@ -5,17 +5,20 @@ info:
   description: |
     # ChangeLog
 
+    ## v2.0.11
+    - 增加調配處方適度參數
+
     ## v2.0.10
     - 增加調配處方回饋音處理否打開參數
     - 增加調配處方回饋音處理等級參數
     - 增加調配處方噪音抑制等級參數
 
-    ## v2.0.9
-    - 增加使用者搜索參數
-
     # Old ChangeLog
     <details>
     <summary style="cursor: pointer;">Details</summary>
+
+    ## v2.0.9
+    - 增加使用者搜索參數
 
     ## v2.0.8
     - 增加調配處方指向性麥克風參數
@@ -711,6 +714,7 @@ paths:
                     noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
+                    suitability: 70
                     preset: 0
                 rightDatas:
                   allOf:
@@ -746,6 +750,7 @@ paths:
                     noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
+                    suitability: 70
                     preset: 0
                 software:
                   $ref: "#/components/schemas/Software"
@@ -1273,6 +1278,11 @@ components:
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
+        suitability:
+            type: number
+            minimum: 0
+            maximum: 100
+            description: 處方適度
         echoProcessing:
             $ref: "#/components/schemas/EchoProcessingData"
         preset:
@@ -1309,6 +1319,11 @@ components:
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
+        suitability:
+            type: number
+            minimum: 0
+            maximum: 100
+            description: 處方適度
         echoProcessing:
             $ref: "#/components/schemas/EchoProcessingData"
         preset:
@@ -1436,6 +1451,7 @@ components:
             noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
+            suitability: 70
             preset: 0
             is_accept: true
         right:
@@ -1483,6 +1499,7 @@ components:
             noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
+            suitability: 70
             preset: 0
             is_accept: true
     HearingLossInfo:
