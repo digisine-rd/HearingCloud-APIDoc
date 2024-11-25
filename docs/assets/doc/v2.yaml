@@ -1,9 +1,12 @@
 openapi: 3.0.0
 info:
   title: DigibionicCloudv2 API Documentation
-  version: 2.0.10
+  version: 2.0.12
   description: |
     # ChangeLog
+
+    ## v2.0.12
+    - 修正調配處方適度參數
 
     ## v2.0.11
     - 增加調配處方適度參數
@@ -702,6 +705,7 @@ paths:
                           - 200
                           - 300
                         mode: 0
+                        adapt: 100
                     directionalMic:
                       isEnable: true
                       direction: 1
@@ -714,7 +718,6 @@ paths:
                     noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
-                    suitability: 70
                     preset: 0
                 rightDatas:
                   allOf:
@@ -738,6 +741,7 @@ paths:
                           - 200
                           - 300
                         mode: 0
+                        adapt: 100
                     directionalMic:
                       isEnable: true
                       direction: 1
@@ -750,7 +754,6 @@ paths:
                     noiseReduceLevel: 1
                     windNoiseCancel: true
                     transientSoundSofting: true
-                    suitability: 70
                     preset: 0
                 software:
                   $ref: "#/components/schemas/Software"
@@ -1177,6 +1180,12 @@ components:
         mode:
           type: integer
           example: 0
+        adapt:
+          type: integer
+          minimum: 0
+          maximum: 100
+          default: 100
+          example: 100
     FittingTableExtraData:
       type: object
       properties:
@@ -1214,6 +1223,12 @@ components:
           type: integer
           description: "模式"
           example: 0
+        adapt:
+          type: integer
+          minimum: 0
+          maximum: 100
+          default: 100
+          example: 100
         device_id: 
           description: "裝置唯一識別ID"
           type: integer
@@ -1278,11 +1293,6 @@ components:
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
-        suitability:
-            type: number
-            minimum: 0
-            maximum: 100
-            description: 處方適度
         echoProcessing:
             $ref: "#/components/schemas/EchoProcessingData"
         preset:
@@ -1319,11 +1329,6 @@ components:
         transientSoundSofting:
             type: boolean
             description: 瞬響音柔化是否打開
-        suitability:
-            type: number
-            minimum: 0
-            maximum: 100
-            description: 處方適度
         echoProcessing:
             $ref: "#/components/schemas/EchoProcessingData"
         preset:
@@ -1439,6 +1444,7 @@ components:
                   - 200
                   - 300
                 mode: 0
+                adapt: 100
             directionalMic:
               isEnable: true
               direction: 1
@@ -1451,7 +1457,6 @@ components:
             noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
-            suitability: 70
             preset: 0
             is_accept: true
         right:
@@ -1487,6 +1492,7 @@ components:
                   - 200
                   - 300
                 mode: 0
+                adapt: 100
             directionalMic:
               isEnable: true
               direction: 1
@@ -1499,7 +1505,6 @@ components:
             noiseReduceLevel: 1
             windNoiseCancel: true
             transientSoundSofting: true
-            suitability: 70
             preset: 0
             is_accept: true
     HearingLossInfo:
